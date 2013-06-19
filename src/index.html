@@ -17,7 +17,7 @@ if(last_page_ele_count != 0)
 </script>
 <fieldset style= "width:310px;margin-left:35%">
 	<legend>Simple Javascript Pagination</legend>
-	<button id="#back-btn" onclick="back()">Back</button><span id="result" style="font-weight:bold"></span><button id="#next-btn" onclick="next()">Next</button>
+	<button onclick="back()">Back</button><span id="result" style="font-weight:bold"></span><button id="#next-btn" onclick="next()">Next</button><br><br><center><button onclick="first()">&lt;&lt;</button><button onclick="last()">&gt;&gt;</button></center>
 </fieldset>
 <script>
 function back() {
@@ -26,8 +26,7 @@ function back() {
 		for(var j = 0; j < data_per_page; j++)
 			content += 	" " + data[((current_page - 2)*data_per_page) + j];
 		current_page--;
-		document.getElementById('result').innerHTML = content;
-		console.log(current_page);
+		document.getElementById('result').innerHTML = content;		
 	}
 }
 
@@ -37,17 +36,37 @@ function next() {
 		for(var j = 0; j < last_page_ele_count; j++)
 			content += 	" " + data[(current_page*data_per_page) + j];
 		current_page++;
-		document.getElementById('result').innerHTML = content;
-		console.log(current_page);
+		document.getElementById('result').innerHTML = content;		
 	}
 	else if(current_page != total_pages) {		
 		var content = "";
 		for(var j = 0; j < data_per_page; j++)
 			content += 	" " + data[(current_page*data_per_page) + j];
 		current_page++;
-		document.getElementById('result').innerHTML = content;
-		console.log(current_page);
+		document.getElementById('result').innerHTML = content;		
 	}
+}
+
+function last() {
+	var content = "";
+	if(last_page_ele_count != 0) {
+		for(var j = 0; j < last_page_ele_count; j++)
+			content += 	" " + data[((total_pages - 1) *data_per_page) + j];
+	}
+	else {
+		for(var j = 0; j < data_per_page; j++)
+			content += 	" " + data[((total_pages - 1) *data_per_page) + j];
+	}
+	current_page = total_pages;
+	document.getElementById('result').innerHTML = content;
+}
+
+function first() {
+	var content = "";
+	for(var j = 0; j < data_per_page; j++)
+		content += 	" " + data[j];
+	current_page = 1;
+	document.getElementById('result').innerHTML = content;
 }
 next();
 </script>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+	<title>Simple Javascript Pagination</title>
+</head>
+<body>
+<script>
+var current_page = 0; //Current displayed page
+var data_per_page = 4; //How many data you wanna show in a page
+var data = []; //Array containing data
+for(var i = 0; i < 100; i++)
+	data.push("data" + (i + 1).toString());
+var total_pages = parseInt(data.length/data_per_page); //Total number of pages to be generated
+var last_page_ele_count = data.length % data_per_page; //If data count is not divisible by page count then count of elements in last page differs. Hence this variable
+if(last_page_ele_count != 0)
+	total_pages++;
+</script>
+<fieldset style= "width:310px;margin-left:35%">
+	<legend>Simple Javascript Pagination</legend>
+	<button id="#back-btn" onclick="back()">Back</button><span id="result" style="font-weight:bold"></span><button id="#next-btn" onclick="next()">Next</button>
+</fieldset>
+<script>
+function back() {
+	if(current_page != 1) {
+		var content = "";
+		for(var j = 0; j < data_per_page; j++)
+			content += 	" " + data[((current_page - 2)*data_per_page) + j];
+		current_page--;
+		document.getElementById('result').innerHTML = content;
+		console.log(current_page);
+	}
+}
+
+function next() {
+	if(current_page + 1 == total_pages && last_page_ele_count != 0) {
+		var content = "";
+		for(var j = 0; j < last_page_ele_count; j++)
+			content += 	" " + data[(current_page*data_per_page) + j];
+		current_page++;
+		document.getElementById('result').innerHTML = content;
+		console.log(current_page);
+	}
+	else if(current_page != total_pages) {		
+		var content = "";
+		for(var j = 0; j < data_per_page; j++)
+			content += 	" " + data[(current_page*data_per_page) + j];
+		current_page++;
+		document.getElementById('result').innerHTML = content;
+		console.log(current_page);
+	}
+}
+next();
+</script>
+</body>
